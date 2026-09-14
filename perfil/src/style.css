@@ -1,0 +1,120 @@
+:root {
+  --cor-fundo: #0f172a;
+  --cor-card: #1e293b;
+  --cor-texto: #dddddd;
+  --cor-texto-suave: #94a3b8;
+  --cor-destaque: #2a90bc;
+
+  --espaco-sm: 1rem;
+  --espaco-md: 1rem;
+  --espaco-lg: 3rem;
+
+  --raio-card: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.pagina {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espaco-lg);
+}
+
+.card-perfil {
+  background: var(--cor-card);
+  border-radius: var(--raio-card);
+  padding: var(--espaco-lg);
+  max-width: 32rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-sm);
+  text-align: center;
+}
+
+.card-perfil__foto {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: var(--espaco-sm);
+}
+
+.card-perfil__nome {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.card-perfil__cargo {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+  margin: 0 0 var(--espaco-md);
+}
+
+.card-perfil__bio {
+  font-size: 1rem;
+  line-height: 1.5em;
+}
+
+.card-perfil__redes {
+  display: flex;
+  gap: var(--espaco-sm);
+  margin-top: var(--espaco-md);
+}
+
+.card-perfil__redes a {
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--cor-texto-suave);
+  border-radius: 999px;
+}
+
+.card-perfil__redes a:hover {
+  border-color: var(--cor-destaque);
+  color: var(--cor-destaque);
+}
+
+.card-perfil__acoes {
+  display: flex;
+  gap: var(--espaco-sm)
+}
+
+.card-perfil__follow,
+.card-perfil__unfollow {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.card-perfil__follow, .card-perfil__unfollow {
+  background-color: var(--cor-destaque);
+  color: var(--cor-texto)
+}
+
+.card-perfil__follow:hover,
+.card-perfil__unfollow:hover {
+  opacity: 0.85;
+}
+
+.card-perfil__contador {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+}
