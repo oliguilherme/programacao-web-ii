@@ -1,14 +1,6 @@
-import express, { type Express, type Request, type Response } from 'express';
+import app from "./app";
 
-const app: Express = express();
 const PORT = 3000;
-
-app.use(express.json());
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, World');
-});
-
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
