@@ -24,7 +24,27 @@ function showTasks() {
     taskElement.querySelector('input[type="checkbox"]').checked = t.checked;
 
     elements.taskList.append(taskElement);
-  })
+  });
 }
 
+async function handleAddTasks(e) {
+  e.preventDefault();
+
+  const title = elements.taskInput.value.trim();
+
+  try {
+    const newTask = await Api.createTask(title);
+    tasks.push(newTask);
+    showTasks();
+    elements.taskInput.value = '';
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+function setupEvents() {
+  elements.taskForm.addEventListener('submit', handleAddTasks);
+}
+
+setupEvents();
 loadTasks();
