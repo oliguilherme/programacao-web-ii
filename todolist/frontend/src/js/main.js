@@ -42,8 +42,26 @@ async function handleAddTasks(e) {
   }
 }
 
+async function handleDeleteTask(e) {
+  const btnDelete = e.target.closest('.delete-task');
+  if (!btnDelete) return;
+
+  const taskElement = btnDelete.closest('.task');
+  const id = taskElement.dataset.id;
+
+  try {
+    await Api.deleteTask(id);
+    tasks = tasks.filter(t => t.id !== Number(id));
+    
+    showTasks();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
 function setupEvents() {
   elements.taskForm.addEventListener('submit', handleAddTasks);
+  elements.taskList.addEventListener('click', handleDeleteTask);
 }
 
 setupEvents();

@@ -22,5 +22,16 @@ export class Api {
 
     return response.json();
   }
+
+  static async deleteTask(id) {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Erro desconhecido do servidor");
+    }
+  }
 }
 
