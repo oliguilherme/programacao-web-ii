@@ -1,7 +1,8 @@
 import { prisma } from "../lib/prisma";
+import { type CreateTaskInput } from "../schemas/task.schema";
 
 export class TaskRepository {
-  static async create(title: string) {
-    return prisma.task.create({ data: {title } });
+  static async create(data: CreateTaskInput) {
+    return prisma.task.create({ data });
   }
 }

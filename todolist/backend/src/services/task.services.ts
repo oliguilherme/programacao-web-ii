@@ -1,13 +1,8 @@
 import { TaskRepository } from "../repositories/task.repositories";
+import { type CreateTaskInput } from "../schemas/task.schema";
 
 export class TaskService {
-  static async create(title: string) {
-    const cleanedTitle = title.trim();
-
-    if (cleanedTitle === "") {
-      throw new Error("O nome da tarefa não pode ser nulo!");
-    }
-  
-    return await TaskRepository.create(title);
+  static async create(data: CreateTaskInput) {
+    return await TaskRepository.create(data);
   }
 }
