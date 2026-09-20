@@ -124,4 +124,14 @@ input[type="checkbox"] {
   accent-color: #7063F0;
 }
 
+input[type="checkbox"]:checked {
+  accent-color: #02AF75;
+}
+
+.task.completed {
+  border-color: #02AF75;
+  background-color: #E4FFF6;
+  color: #02AF75;
+}
+
 

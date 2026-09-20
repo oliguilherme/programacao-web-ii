@@ -16,7 +16,10 @@ function showTasks() {
   elements.taskList.innerHTML = '';
   tasks.forEach(t => {
     const taskElement = elements.taskTemplate.content.cloneNode(true);
-
+    
+    const task = taskElement.querySelector('.task');
+    if (t.checked) task.classList.add('completed');
+    
     taskElement.querySelector('.task').dataset.id = t.id;
     taskElement.querySelector('.task-name').textContent = t.title;
     taskElement.querySelector('.task-date').textContent = 
@@ -59,9 +62,30 @@ async function handleDeleteTask(e) {
   }
 }
 
+async function handleUpdateTask(e) {
+  const checkbox =  e.target.closest('input[type="checkbox"]');
+  if (!checkbox) return;
+
+  const taskElement = checkbox.closest('.task');
+  const id = taskElement.dataset.id;
+  const checked = checkbox.checked;
+
+  try {
+    const updatedTask = await Api.updateTask(id, checked);
+
+    const index = tasks.findIndex(t => t.id === updatedTask.id);
+    tasks[index] = updatedTask;
+
+    showTasks();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
 function setupEvents() {
   elements.taskForm.addEventListener('submit', handleAddTasks);
   elements.taskList.addEventListener('click', handleDeleteTask);
+  elements.taskList.addEventListener('change', handleUpdateTask);
 }
 
 setupEvents();

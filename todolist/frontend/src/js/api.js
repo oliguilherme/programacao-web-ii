@@ -33,5 +33,22 @@ export class Api {
       throw new Error(errorData.message || "Erro desconhecido do servidor");
     }
   }
+
+  static async updateTask(id, checked) {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ checked }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Erro desconhecido do servidor");
+    }
+
+    return response.json();
+  }
 }
 
