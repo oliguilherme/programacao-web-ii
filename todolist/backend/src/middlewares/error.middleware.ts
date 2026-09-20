@@ -11,7 +11,7 @@ export function errorMiddleware(
 ) {
   if (err instanceof ZodError) {
     return res.status(StatusCodes.BAD_REQUEST).json({
-      message: "Dados inválidos",
+      message: err.issues[0]?.message || "Dados inválidos", 
       errors: err.issues
     })
 
