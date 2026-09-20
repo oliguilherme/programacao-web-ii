@@ -5,4 +5,8 @@ export class TaskService {
   static async create(data: CreateTaskInput) {
     return await TaskRepository.create(data);
   }
+
+  static async findAll() {
+    return await TaskRepository.findAll();
+  }
 }

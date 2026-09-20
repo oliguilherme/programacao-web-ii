@@ -5,6 +5,8 @@ import { createTaskSchema } from '../schemas/task.schema';
 
 const router = express.Router();
 
+router.get('/', TaskController.list);
 router.post('/', validate(createTaskSchema), TaskController.create);
+
 
 export default router;

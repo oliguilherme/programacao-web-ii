@@ -5,4 +5,8 @@ export class TaskRepository {
   static async create(data: CreateTaskInput) {
     return prisma.task.create({ data });
   }
+
+  static async findAll() {
+    return prisma.task.findMany();
+  }
 }
