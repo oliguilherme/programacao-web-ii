@@ -1,6 +1,7 @@
 import type { Response, Request, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ZodError } from 'zod';
+import { AppError } from '../helpers/app-error';
 
 export function errorMiddleware(
   err: Error,
@@ -13,7 +14,11 @@ export function errorMiddleware(
       message: "Dados inválidos",
       errors: err.issues
     })
+
   }
-  console.log(err);
-  res.status(500).json({ message: "Erro interno do servidor" });
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ message: err.message });
+  }
+
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Internal Server Error" });
 }

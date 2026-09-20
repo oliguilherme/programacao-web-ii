@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 import { TaskService } from "../services/task.services";
 import { createTaskSchema } from "../schemas/task.schema";
 import { StatusCodes } from 'http-status-codes'; 
+import { AppError } from "../helpers/app-error";
 
 
 export class TaskController {
