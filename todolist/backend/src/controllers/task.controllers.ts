@@ -7,8 +7,7 @@ import { AppError } from "../helpers/app-error";
 
 export class TaskController {
   static async create(req: Request, res: Response) {
-    const data = createTaskSchema.parse(req.body);
-    const task = await TaskService.create(data);
+    const task = await TaskService.create(req.body);
 
     return res.status(StatusCodes.CREATED).json(task);
   }
