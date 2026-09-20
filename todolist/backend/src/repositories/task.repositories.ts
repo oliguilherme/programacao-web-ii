@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma";
-import type { CreateTaskInput, TasksIdParams } from "../schemas/task.schema";
+import type { CreateTaskInput, TasksIdParams, UpdateTaskCheckbox } from "../schemas/task.schema";
 
 export class TaskRepository {
   static async create(data: CreateTaskInput) {
@@ -16,5 +16,12 @@ export class TaskRepository {
 
   static async delete(data: TasksIdParams) {
     return prisma.task.delete({ where: data });
+  }
+
+  static async update(id: TasksIdParams, data: UpdateTaskCheckbox) {
+    return prisma.task.update({
+      where: id,
+      data
+    });
   }
 }

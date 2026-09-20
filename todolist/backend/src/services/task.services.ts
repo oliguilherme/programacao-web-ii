@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { AppError } from "../helpers/app-error";
 import { TaskRepository } from "../repositories/task.repositories";
-import type { CreateTaskInput, TasksIdParams } from "../schemas/task.schema";
+import type { CreateTaskInput, TasksIdParams, UpdateTaskCheckbox } from "../schemas/task.schema";
 
 export class TaskService {
   static async create(data: CreateTaskInput) {
@@ -22,5 +22,13 @@ export class TaskService {
       throw new AppError("Tarefa não encontrada", StatusCodes.NOT_FOUND);
     }
     return await TaskRepository.delete(data);
+  }
+
+  static async update(id: TasksIdParams, data: UpdateTaskCheckbox) {
+    const task = await TaskRepository.findById(id);
+    if (!task) {
+      throw new AppError("Tarefa não encontrada", StatusCodes.NOT_FOUND);   
+    }
+    return await TaskRepository.update(id, data);
   }
 }
