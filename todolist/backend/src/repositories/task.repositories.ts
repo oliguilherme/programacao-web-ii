@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma";
-import { type CreateTaskInput } from "../schemas/task.schema";
+import type { CreateTaskInput, TasksIdParams } from "../schemas/task.schema";
 
 export class TaskRepository {
   static async create(data: CreateTaskInput) {
@@ -8,5 +8,13 @@ export class TaskRepository {
 
   static async findAll() {
     return prisma.task.findMany();
+  }
+
+  static async findById(data: TasksIdParams) {
+    return prisma.task.findUnique({ where: data })
+  }
+
+  static async delete(data: TasksIdParams) {
+    return prisma.task.delete({ where: data });
   }
 }
