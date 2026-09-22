@@ -3,6 +3,9 @@ import { Api } from "./api";
 let tasks = [];
 
 
+loadTasks();
+setupEvents();
+
 async function loadTasks() {
   try {
     tasks = await Api.fetchTasks();
@@ -14,20 +17,29 @@ async function loadTasks() {
 
 function showTasks() {
   elements.taskList.innerHTML = '';
-  tasks.forEach(t => {
-    const taskElement = elements.taskTemplate.content.cloneNode(true);
-    
-    const task = taskElement.querySelector('.task');
-    if (t.checked) task.classList.add('completed');
-    
-    taskElement.querySelector('.task').dataset.id = t.id;
-    taskElement.querySelector('.task-name').textContent = t.title;
-    taskElement.querySelector('.task-date').textContent = 
-      `Criada em: ${new Date(t.createdAt).toLocaleDateString('pt-br')}`;
-    taskElement.querySelector('input[type="checkbox"]').checked = t.checked;
 
-    elements.taskList.append(taskElement);
-  });
+  if (tasks.length === 0) {
+    const emptyMessage = document.createElement('li');
+    emptyMessage.classList.add('empty-state');
+    emptyMessage.textContent = 'Nenhuma tarefa cadastrada';
+    elements.taskList.append(emptyMessage);
+  } else {
+    tasks.forEach(t => {
+      const taskElement = elements.taskTemplate.content.cloneNode(true);
+      
+      const task = taskElement.querySelector('.task');
+      if (t.checked) task.classList.add('completed');
+      
+      taskElement.querySelector('.task').dataset.id = t.id;
+      taskElement.querySelector('.task-name').textContent = t.title;
+      taskElement.querySelector('.task-date').textContent = 
+        `Criada em: ${new Date(t.createdAt).toLocaleDateString('pt-br')}`;
+      taskElement.querySelector('input[type="checkbox"]').checked = t.checked;
+
+      elements.taskList.append(taskElement);
+    });
+  }
+  updateProgress();
 }
 
 async function handleAddTasks(e) {
@@ -82,11 +94,16 @@ async function handleUpdateTask(e) {
   }
 }
 
+function updateProgress() {
+  const completedTasks = tasks.filter(t => t.checked).length;
+  const totalTasks = tasks.length;
+
+  elements.taskProgess.textContent = 
+    `${completedTasks} de ${totalTasks} concluídas.`
+}
+
 function setupEvents() {
   elements.taskForm.addEventListener('submit', handleAddTasks);
   elements.taskList.addEventListener('click', handleDeleteTask);
   elements.taskList.addEventListener('change', handleUpdateTask);
 }
-
-setupEvents();
-loadTasks();
